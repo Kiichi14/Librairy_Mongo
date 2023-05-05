@@ -1,0 +1,18 @@
+{
+    "name": "etiennehauguel/routerphp",
+    "autoload": {
+        "psr-4": {
+            "Etiennehauguel\\Routerphp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kiichi14",
+            "email": "100412917+Kiichi14@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "1.1.0",
+        "mongodb/mongodb": "^1.15"
+    }
+}
