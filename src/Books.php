@@ -25,6 +25,7 @@ Class Books {
 
         $result = $collection->aggregate(
             [
+                [ '$limit' => 50 ],
                 ['$lookup' => [
                         'from' => 'comments', 'localField' => '_id', 'foreignField' => 'idBook', 'as' => 'avg_rate'
                     ]

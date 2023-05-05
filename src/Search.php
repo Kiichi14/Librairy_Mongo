@@ -16,6 +16,7 @@ Class Search {
 
         $result = $collection->aggregate(
             [
+                ['$limit' => 50],
                 ['$match' => ['author' => $new]],
                 ['$lookup' => [
                         'from' => 'comments', 'localField' => '_id', 'foreignField' => 'idBook', 'as' => 'avg_rate'
@@ -46,6 +47,7 @@ Class Search {
 
         $result = $collection->aggregate(
             [
+                ['$limit' => 50],
                 ['$match' => ['category' => $category]],
                 ['$lookup' => [
                         'from' => 'comments', 'localField' => '_id', 'foreignField' => 'idBook', 'as' => 'avg_rate'
@@ -78,6 +80,7 @@ Class Search {
 
         $result = $collection->aggregate(
             [
+                ['$limit' => 50],
                 ['$match' => ['title' => $new]],
                 ['$lookup' => [
                         'from' => 'comments', 'localField' => '_id', 'foreignField' => 'idBook', 'as' => 'avg_rate'
@@ -110,6 +113,7 @@ Class Search {
 
         $result = $collection->aggregate(
             [
+                ['$limit' => 50],
                 ['$match' => ['editeur' => $new]],
                 ['$lookup' => [
                         'from' => 'comments', 'localField' => '_id', 'foreignField' => 'idBook', 'as' => 'avg_rate'

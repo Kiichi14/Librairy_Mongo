@@ -28,6 +28,7 @@ Class Comments {
         $comments = $this->conn->librairy->comments;
 
         $result = $comments->aggregate([
+            ['$limit' => 50],
             ['$match' => 
                 [
                 'idBook' => new MongoDB\BSON\ObjectID($id)

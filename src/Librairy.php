@@ -13,6 +13,7 @@ Class Librairy {
         $users = $this->conn->librairy->users;
 
         $result = $users->aggregate([
+            ['$limit' => 50],
             ['$match' => ["_id" => new MongoDB\BSON\ObjectID($id)]],
             ['$unwind' => '$librairy'],
             [
@@ -90,9 +91,11 @@ Class Librairy {
 
         $users = $this->conn->librairy->users;
 
+        $getMonth = date('Y-m');
+
         $users->updateOne(
             ['_id' => new MongoDB\BSON\ObjectID($_POST['idUser']), 'librairy.id' => $_POST['idEdition']],
-            ['$set' => ['librairy.$.status' => 'finish', 'librairy.$.finish_time' => new \MongoDB\BSON\UTCDateTime()]]
+            ['$set' => ['librairy.$.status' => 'finish', 'librairy.$.finish_time' =>  $getMonth]]
         );
 
         echo "Sa vous a plus n'hesiter pas a laisser un commentaire sur ce live ;)";
@@ -114,6 +117,8 @@ Class Librairy {
 
         $users = $this->conn->librairy->users;
 
+        $getMonth = date('Y-m');
+
         $result = $users->aggregate([
             ['$match' => ["_id" => new MongoDB\BSON\ObjectID($id)]],
             ['$project' => [
@@ -130,13 +135,12 @@ Class Librairy {
                     '$filter' => [
                         'input' => '$librairy',
                         'cond' => [
-                            //'$eq' => ['$$this.status', "finish"]
                             '$and' => [
                                 [
-                                    '$eq' => ['$$this.status', "reading"]
+                                    '$eq' => ['$$this.status', "finish"]
                                 ],
                                 [
-                                    '$eq' => ['$month' => '$$this.finish_time', '$month' => new \MongoDB\BSON\UTCDateTime()]
+                                    '$eq' => ['$$this.finish_time', $getMonth]
                                 ]
                             ]
                         ]

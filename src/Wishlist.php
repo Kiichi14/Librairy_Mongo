@@ -25,6 +25,7 @@ Class Wishlist {
         $users = $this->conn->librairy->users;
 
         $result = $users->aggregate([
+            [ '$limit' => 50 ],
             ['$match' => ["_id" => new MongoDB\BSON\ObjectID($id)]],
             ['$unwind' => '$wishlist'],
             [

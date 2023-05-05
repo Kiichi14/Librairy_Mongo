@@ -27,7 +27,7 @@ Class User {
 
         $users = $this->conn->librairy->users;
 
-        $result = $users->find([]);
+        $result = $users->find([], ['limit' => 50]);
 
         echo json_encode(iterator_to_array($result));
     }
