@@ -8,6 +8,8 @@ Class Edition {
         $this->conn = (new Connection)->openConnection();
     }
 
+    // Méthode INSERT éditions
+
     public function addEdition($id) {
 
         $collection = $this->conn->librairy->books;

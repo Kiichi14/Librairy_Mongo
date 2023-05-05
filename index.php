@@ -3,6 +3,8 @@
 include 'autoloader.php';
 require 'vendor/autoload.php';
 
+// Déclaration des instances de class disponible
+
 $router = new AltoRouter();
 $books = new Books();
 $user = new User();

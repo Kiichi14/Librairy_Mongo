@@ -26,13 +26,17 @@ Class Wishlist {
 
         $result = $users->aggregate([
             [ '$limit' => 50 ],
+            // Match sur l'id de l'utilsateur
             ['$match' => ["_id" => new MongoDB\BSON\ObjectID($id)]],
+            // Décomposition du tableau librairie qui contient les id d'editions de livre
             ['$unwind' => '$wishlist'],
             [
                 '$lookup' => [
                     'from' => 'books',
+                    // Comme le id dans la librairie user sont sous forme de string on les convertit en objectId pour les comparer avec ceux de livres
                     'let' => ['wishlistId' => ['$toObjectId' => '$wishlist' ]],
                     'pipeline' => [
+                        // pipeline de match sur les livres qui contienne les id d'éditions en décomposant le tableau éditions des livres
                         ['$match' => ['$expr' => ['$in' => ['$$wishlistId', '$editions.id']]]],
                         ['$unwind' => '$editions'],
                         ['$match' => ['$expr' => ['$eq' => ['$$wishlistId', '$editions.id']]]]
@@ -40,6 +44,7 @@ Class Wishlist {
                     'as' => 'bookInfo'
                 ]
             ],
+            // Décomposition de bookInfo afin d'en extraire les données
             ['$unwind' => '$bookInfo'],
             [
                 '$lookup' => [
@@ -49,6 +54,7 @@ Class Wishlist {
                     'as' => "userInfo"
                 ]
             ],
+            // Décomposition de userInfo afin d'en extraire les données
             ['$unwind' => '$userInfo'],
             [
                 '$project' => [

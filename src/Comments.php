@@ -8,6 +8,8 @@ Class Comments {
         $this->conn = (new Connection)->openConnection();
     }
 
+    // Méthodes INSERT commentaire
+
     public function addComments($idBook, $idUser) {
 
         $comments = $this->conn->librairy->comments;
@@ -22,6 +24,8 @@ Class Comments {
         echo 'Votre commentaire a bien été publié';
 
     }
+
+    // Méthodes GET commentaire
 
     public function getBookComments($id) {
 

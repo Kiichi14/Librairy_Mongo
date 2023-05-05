@@ -8,6 +8,8 @@ Class User {
         $this->conn = (new Connection)->openConnection();
     }
 
+    // Méthode INSERT des User
+
     public function insertUser() {
         $users = $this->conn->librairy->users;
         
@@ -22,6 +24,8 @@ Class User {
 
         echo "l'utilisateur a bien été crée";
     }
+
+    // Méthode GET des User
 
     public function getAllUsers(){
 
@@ -43,6 +47,8 @@ Class User {
         echo json_encode($result);
 
     }
+
+    // Méthode UPDATE des user
 
     public function updateUser($id) {
 
